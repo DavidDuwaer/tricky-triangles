@@ -6,7 +6,8 @@ package Graph;
  */
 public class Vertex {
     
-    int id;
-    double x, y;
+    public int id;
+    public double x, y;
+    public Edge[] e;
     
 }

@@ -1,12 +1,14 @@
 package Graph;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author s115869
  */
 public class Graph {
     
-    Vertex[] v;
+    public Vertex[] v;
     
     // TODO Flip the given edge
     public void flipEdge(Edge e){
@@ -33,8 +35,15 @@ public class Graph {
         // v1 en v2 zijn nu de nieuwe vertices van de te flippen edge.
     }
     
-    // TODO generates random graph with 'vertices' vertices.
-    public Graph(){
-        
+    // TODO
+    public Edge[] getEdges(){
+        ArrayList<Edge> edges = new ArrayList<>();
+        for(Vertex vert: v){
+            for(Edge e: vert.e){
+                edges.add(e);
+            }
+        }
+        return edges.toArray();
     }
+    
 }
