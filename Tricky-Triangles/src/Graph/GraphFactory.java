@@ -30,4 +30,17 @@ public class GraphFactory {
          */
         return graph;
     }
+    
+    /*
+     * Creates a vertex with a random position (x, y) such that 0<=x<=1 and
+     * 0<=y<=1.
+     */
+    public Vertex createRandomVertex()
+    {
+        /*
+         * TODO: implement method
+        */
+        Vertex vertex = new Vertex();
+        return vertex;
+    }
 }
