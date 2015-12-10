@@ -15,7 +15,7 @@ public class Graph {
         boolean[][] same = new boolean[2][3];
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 3; j++){
-                if(vertices[0][i].id == vertices[1][j].id){
+                if(vertices[0][i] == vertices[1][j]){
                     same[0][i] = true;
                     same[1][j] = true;
                 }

@@ -6,6 +6,7 @@
 package Graph;
 
 import java.util.Collection;
+import java.util.Random;
 
 /**
  *
@@ -37,10 +38,11 @@ public class GraphFactory {
      */
     public Vertex createRandomVertex()
     {
-        /*
-         * TODO: implement method
-        */
-        Vertex vertex = new Vertex();
+        Random generator = new Random();
+        Vertex vertex = new Vertex(
+                generator.nextDouble(),
+                generator.nextDouble()
+        );
         return vertex;
     }
 }
