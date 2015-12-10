@@ -6,4 +6,7 @@ package Graph;
  */
 public class Vertex {
     
+    int id;
+    double x, y;
+    
 }
