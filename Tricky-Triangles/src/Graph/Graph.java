@@ -14,7 +14,7 @@ public class Graph {
     }
     
     // TODO generates random graph with 'vertices' vertices.
-    public Graph(int vertices){
+    public Graph(){
         
     }
 }
