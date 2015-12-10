@@ -4,7 +4,7 @@ package Graph;
  *
  * @author s115869
  */
-public class RandomGraph {
+public class Graph {
     
     Vertex[] v;
     
@@ -14,7 +14,7 @@ public class RandomGraph {
     }
     
     // TODO generates random graph with 'vertices' vertices.
-    public RandomGraph(int vertices){
+    public Graph(int vertices){
         
     }
 }

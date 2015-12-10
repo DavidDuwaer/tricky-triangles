@@ -1,6 +1,6 @@
 package GUI;
 
-import Graph.RandomGraph;
+import Graph.Graph;
 import TrickyTriangles.TrickyTriangles;
 import javax.swing.JFrame;
 
@@ -25,7 +25,7 @@ public class GUI {
         //frame.getContentPane().setBackground( Color.BLACK );
     }
     
-    public void show(RandomGraph g){
+    public void show(Graph g){
         panel.set(g);
         panel.repaint();
     }
