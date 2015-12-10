@@ -1,6 +1,6 @@
 package GUI;
 
-import Graph.Graph;
+import Graph.RandomGraph;
 import TrickyTriangles.TrickyTriangles;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,14 +14,14 @@ import javax.swing.JPanel;
  */
 public class Panel extends JPanel implements MouseListener{
     
-    Graph graph;
+    RandomGraph graph;
     TrickyTriangles main;
     
     Panel(TrickyTriangles m){
         main = m;
     }
     
-    public void set(Graph g){
+    public void set(RandomGraph g){
         graph = g;
     }
     

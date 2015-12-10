@@ -1,7 +1,7 @@
 package TrickyTriangles;
 
 import GUI.GUI;
-import Graph.Graph;
+import Graph.RandomGraph;
 
 public class TrickyTriangles {
 
@@ -9,7 +9,7 @@ public class TrickyTriangles {
     
     public void run(){
         gui = new GUI(this);
-        Graph g = new Graph(100);
+        RandomGraph g = new RandomGraph(100);
     }
     
     public static void main(String[] args) {
