@@ -44,8 +44,8 @@ public class GUI {
         /*
          * Canvas
          */
-        workCanvas = new Panel(main);
-        goalCanvas = new Panel(main);
+        workCanvas = new Panel(main.getWorkGraph());
+        goalCanvas = new Panel(main.getGoalGraph());
 
         /*
          * "New game" button

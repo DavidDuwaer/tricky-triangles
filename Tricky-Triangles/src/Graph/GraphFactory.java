@@ -14,6 +14,16 @@ import java.util.Random;
  */
 public class GraphFactory {
     
+    public Graph createGraphWithOnlyPoints(Collection<Vertex> points)
+    {
+        Graph graph = new Graph();
+        for (Vertex v : points)
+        {
+            graph.addVertex(v);
+        }
+        return graph;
+    }
+    
     public Graph createRandomTriangulation(Collection<Vertex> vertexSet)
     {
         Graph graph = new Graph();

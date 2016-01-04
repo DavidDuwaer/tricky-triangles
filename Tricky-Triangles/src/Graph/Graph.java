@@ -9,8 +9,8 @@ import java.util.Set;
  */
 public class Graph {
     
-    Set<Vertex> v;
-    Set<Edge> e;
+    private Set<Vertex> v;
+    private Set<Edge> e;
     
     // TODO Flip the given edge
     public void flipEdge(Edge e){
@@ -41,5 +41,20 @@ public class Graph {
     public Graph(){
         this.v = new HashSet<>();
         this.e = new HashSet<>();
+    }
+    
+    public Set<Vertex> getVertices()
+    {
+        return v;
+    }
+    
+    public Set<Edge> getEdges()
+    {
+        return e;
+    }
+    
+    public void addVertex(Vertex vertex)
+    {
+        this.v.add(vertex);
     }
 }
