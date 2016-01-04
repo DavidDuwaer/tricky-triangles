@@ -57,4 +57,9 @@ public class Graph {
     {
         this.v.add(vertex);
     }
+    
+    public void addEdge(Vertex v1, Vertex v2)
+    {
+        this.e.add(new Edge(v1, v2));
+    }
 }

@@ -1,5 +1,6 @@
 package GUI;
 
+import Graph.Edge;
 import Graph.Graph;
 import Graph.Vertex;
 import TrickyTriangles.TrickyTriangles;
@@ -24,6 +25,7 @@ public class Panel extends JPanel implements MouseListener{
     Panel(Graph graph){
         this.graph = graph;
         setBorder(new StrokeBorder(new BasicStroke(1f)));
+        setBackground(new Color(91, 155, 213));
     }
     
     public void set(Graph g){
@@ -60,6 +62,15 @@ public class Panel extends JPanel implements MouseListener{
 //                    (int) (vertex.getPos()[0] * getWidth()) + 1,
 //                    (int) (vertex.getPos()[1] * getHeight()) + 1
 //            );
+        }
+        for (Edge edge : graph.getEdges())
+        {
+            graphics.drawLine(
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * 0.8) + 6,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * 0.8) + 6,
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[1].getPos()[0] * getWidth() * 0.8) + 6,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * 0.8 + 6)
+            );
         }
 //        g.drawOval(0, 0, getWidth(), getHeight());
     }

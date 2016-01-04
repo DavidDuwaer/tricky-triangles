@@ -5,6 +5,7 @@
  */
 package Graph;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
@@ -20,6 +21,22 @@ public class GraphFactory {
         for (Vertex v : points)
         {
             graph.addVertex(v);
+        }
+        return graph;
+    }
+    
+    public Graph createRandomGraphFromPoints(Collection<Vertex> points)
+    {
+        Graph graph = createGraphWithOnlyPoints(points);
+        Random generator = new Random();
+        int n = (int) Math.floor(generator.nextDouble() * points.size() * (points.size() - 1));
+        int ii, jj;
+        Vertex pointsArray[] = points.toArray(new Vertex[points.size()]);
+        for (int i = 0; i < n; i++)
+        {
+            ii = generator.nextInt(points.size());
+            jj = generator.nextInt(points.size());
+            graph.addEdge(pointsArray[ii], pointsArray[jj]);
         }
         return graph;
     }
