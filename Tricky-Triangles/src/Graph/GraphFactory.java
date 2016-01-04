@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class GraphFactory {
     
-    public Graph createRandomTriangulation(Collection<Vertex> pointSet)
+    public Graph createRandomTriangulation(Collection<Vertex> vertexSet)
     {
         Graph graph = new Graph();
         /*

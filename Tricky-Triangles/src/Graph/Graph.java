@@ -1,12 +1,16 @@
 package Graph;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  *
  * @author s115869
  */
 public class Graph {
     
-    Vertex[] v;
+    Set<Vertex> v;
+    Set<Edge> e;
     
     // TODO Flip the given edge
     public void flipEdge(Edge e){
@@ -35,6 +39,7 @@ public class Graph {
     
     // TODO generates random graph with 'vertices' vertices.
     public Graph(){
-        
+        this.v = new HashSet<>();
+        this.e = new HashSet<>();
     }
 }

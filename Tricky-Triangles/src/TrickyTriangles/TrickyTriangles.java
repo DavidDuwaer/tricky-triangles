@@ -4,8 +4,8 @@ import GUI.GUI;
 import Graph.Graph;
 import Graph.GraphFactory;
 import Graph.Vertex;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 public class TrickyTriangles {
 
@@ -22,6 +22,10 @@ public class TrickyTriangles {
     Graph graph;
     
     public void run(){
+        n = 5;
+        
+        graphFactory = new GraphFactory();
+        
         gui = new GUI(this);
         
         graph = initGraph();
@@ -33,13 +37,13 @@ public class TrickyTriangles {
      */
     private Graph initGraph()
     {
-        Set<Vertex> vertexSet = createRandomVertexSet();
-        return graphFactory.createRandomTriangulation(vertexSet);
+        Set<Vertex> pointSet = createRandomPointSet();
+        return graphFactory.createRandomTriangulation(pointSet);
     }
     
-    private Set<Vertex> createRandomVertexSet()
+    private Set<Vertex> createRandomPointSet()
     {
-        Set<Vertex> set = new TreeSet<>();
+        Set<Vertex> set = new HashSet<>();
         for (int i = 0; i < n; i++)
         {
             set.add(graphFactory.createRandomVertex());
