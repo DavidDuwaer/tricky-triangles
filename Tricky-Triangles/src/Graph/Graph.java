@@ -14,10 +14,8 @@ public class Graph {
     private Set<Vertex> v;
     private Set<Edge> e;
     
-    // TODO Flip the given edge
     public void flipEdge(Edge e){
         Triangle[] t = e.t;
-        Vertex[][] vertices = {t[0].v, t[1].v};
         
         // vertices of triangle 0
         ArrayList<Vertex> vertices1 = new ArrayList<>();
@@ -53,7 +51,6 @@ public class Graph {
         e.t[1].v = new Vertex[] {v1,v2,c2};
     }
     
-    // TODO generates random graph with 'vertices' vertices.
     public Graph(){
         this.v = new HashSet<>();
         this.e = new HashSet<>();
