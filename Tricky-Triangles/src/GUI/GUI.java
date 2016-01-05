@@ -4,6 +4,8 @@ import Graph.Graph;
 import TrickyTriangles.TrickyTriangles;
 import java.awt.Container;
 import java.awt.LayoutManager;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.GroupLayout;
@@ -22,6 +24,8 @@ public class GUI {
 
     Panel workCanvas;
     Panel goalCanvas;
+    JButton newGame;
+    JButton resetGame;
     JFrame frame;
 
     public GUI(TrickyTriangles main) {
@@ -38,7 +42,6 @@ public class GUI {
         Container pane = frame.getContentPane();
         GroupLayout gl = new GroupLayout(pane);
         pane.setLayout(gl);
-
         gl.setAutoCreateContainerGaps(true);
 
         /*
@@ -50,52 +53,65 @@ public class GUI {
         /*
          * "New game" button
          */
-        JButton newGame = new JButton("New game");
-
-        gl.setVerticalGroup(gl.createSequentialGroup().addComponent(newGame));
+        newGame = new JButton("New game");
+        newGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                main.newGame();
+                frame.remove(workCanvas);
+                frame.remove(goalCanvas);
+                workCanvas = new Panel(main.getWorkGraph());
+                goalCanvas = new Panel(main.getGoalGraph());
+                makeLayout(gl);
+            }
+        });
 
         /*
          * "Reset game" button
          */
-        JButton resetGame = new JButton();
+        resetGame = new JButton();
         resetGame.setText("Reset game");
+        resetGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                main.resetGame();
+                frame.remove(workCanvas);
+                workCanvas = new Panel(main.getWorkGraph());
+                makeLayout(gl);
+            }
+        });
 
         /*
          * Make layout
          */
-//        gl.setHorizontalGroup(
-//                gl.createSequentialGroup()
-//                .addComponent(newGame)
-//                .addComponent(resetGame)
-//        );
-//        gl.setVerticalGroup(
-//                gl.createParallelGroup()
-//                .addComponent(newGame)
-//                .addComponent(resetGame)
-//        );
+        makeLayout(gl);
+
+        frame.setVisible(true);
+    }
+
+    private void makeLayout(GroupLayout gl) {
         gl.setHorizontalGroup(
                 gl.createParallelGroup()
-                        .addGroup(gl.createSequentialGroup()
-                                .addComponent(workCanvas)
-                                .addComponent(goalCanvas)
-                        )
-                        .addGroup(gl.createSequentialGroup()
-                                .addComponent(newGame)
-                                .addComponent(resetGame)
-                        )
+                .addGroup(gl.createSequentialGroup()
+                        .addComponent(workCanvas)
+                        .addComponent(goalCanvas)
+                )
+                .addGroup(gl.createSequentialGroup()
+                        .addComponent(newGame)
+                        .addComponent(resetGame)
+                )
         );
         gl.setVerticalGroup(
                 gl.createSequentialGroup()
-                        .addGroup(gl.createParallelGroup()
-                                .addComponent(workCanvas)
-                                .addComponent(goalCanvas)
-                        )
-                        .addGroup(gl.createParallelGroup()
-                                .addComponent(newGame)
-                                .addComponent(resetGame)
-                        )
+                .addGroup(gl.createParallelGroup()
+                        .addComponent(workCanvas)
+                        .addComponent(goalCanvas)
+                )
+                .addGroup(gl.createParallelGroup()
+                        .addComponent(newGame)
+                        .addComponent(resetGame)
+                )
         );
-        frame.setVisible(true);
     }
 
     public void show(Graph g) {

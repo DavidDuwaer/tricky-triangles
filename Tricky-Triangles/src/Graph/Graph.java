@@ -43,14 +43,30 @@ public class Graph {
         this.e = new HashSet<>();
     }
     
+    public Graph(Graph graph)
+    {
+        this.v = graph.getVertices();
+        this.e = graph.getEdges();
+    }
+    
     public Set<Vertex> getVertices()
     {
-        return v;
+        HashSet vertices = new HashSet<Vertex>();
+        for (Vertex vertex : v)
+        {
+            vertices.add(vertex);
+        }
+        return vertices;
     }
     
     public Set<Edge> getEdges()
     {
-        return e;
+        HashSet edges = new HashSet<Edge>();
+        for (Edge edge : e)
+        {
+            edges.add(edge);
+        }
+        return edges;
     }
     
     public void addVertex(Vertex vertex)
