@@ -1,12 +1,18 @@
 package GUI;
 
+import Graph.Edge;
 import Graph.Graph;
+import Graph.Vertex;
 import TrickyTriangles.TrickyTriangles;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
+import javax.swing.border.StrokeBorder;
 
 /**
  *
@@ -15,10 +21,11 @@ import javax.swing.JPanel;
 public class Panel extends JPanel implements MouseListener{
     
     Graph graph;
-    TrickyTriangles main;
     
-    Panel(TrickyTriangles m){
-        main = m;
+    Panel(Graph graph){
+        this.graph = graph;
+        setBorder(new StrokeBorder(new BasicStroke(1f)));
+        setBackground(new Color(91, 155, 213));
     }
     
     public void set(Graph g){
@@ -29,6 +36,43 @@ public class Panel extends JPanel implements MouseListener{
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.setColor(Color.black);
+        Graphics2D graphics = (Graphics2D) g;
+        graphics.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        for(Vertex vertex : graph.getVertices())
+        {
+            graphics.fillRoundRect(
+                    (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * 0.8),
+                    (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * 0.8),
+                    12,
+                    12,
+                    12,
+                    12);
+//            g.drawOval(
+//                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()),
+//                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()),
+//                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()) + g.,
+//                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()) + 2
+//            );
+//            g.drawOval(
+//                    (int) (vertex.getPos()[0] * getWidth()),
+//                    (int) (vertex.getPos()[1] * getHeight()),
+//                    (int) (vertex.getPos()[0] * getWidth()) + 1,
+//                    (int) (vertex.getPos()[1] * getHeight()) + 1
+//            );
+        }
+        for (Edge edge : graph.getEdges())
+        {
+            graphics.drawLine(
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * 0.8) + 6,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * 0.8) + 6,
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[1].getPos()[0] * getWidth() * 0.8) + 6,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * 0.8 + 6)
+            );
+        }
+//        g.drawOval(0, 0, getWidth(), getHeight());
     }
     
     
