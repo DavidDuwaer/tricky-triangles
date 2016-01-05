@@ -2,7 +2,9 @@ package GUI;
 
 import Graph.Graph;
 import TrickyTriangles.TrickyTriangles;
+import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -65,6 +67,7 @@ public class GUI {
         frame = new JFrame();
         frame.setTitle("Tricky Triangles");
         frame.setSize(800, 500);
+        frame.setMinimumSize(new Dimension(420, 200));
         layoutHorizontal = frame.getWidth() > frame.getHeight();
         frame.setLocation(20, 20);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,7 +115,7 @@ public class GUI {
          * "Reset game" button
          */
         resetGame = new JButton();
-        resetGame.setText("Reset game");
+        resetGame.setText("Reset current game");
         resetGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
@@ -230,6 +233,7 @@ public class GUI {
                         )
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(newGame)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
                                 .addGap(0, frame.getWidth(), frame.getWidth())
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -261,8 +265,8 @@ public class GUI {
                         )
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(newGame)
-                                .addComponent(resetGame)
+                                .addComponent(newGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
+                                .addComponent(resetGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
                                 .addGroup(gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                 .addComponent(modeLabel)
@@ -286,6 +290,7 @@ public class GUI {
                         .addComponent(workCanvas)
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(newGame)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
                                 .addGap(0, frame.getWidth(), frame.getWidth())
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -314,8 +319,8 @@ public class GUI {
                         .addComponent(workCanvas)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(newGame)
-                                .addComponent(resetGame)
+                                .addComponent(newGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
+                                .addComponent(resetGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
                                 .addGroup(gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                 .addComponent(modeLabel)
@@ -345,6 +350,7 @@ public class GUI {
                         )
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(newGame)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
                                 .addGap(0, frame.getWidth(), frame.getWidth())
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -377,8 +383,8 @@ public class GUI {
                         )
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(newGame)
-                                .addComponent(resetGame)
+                                .addComponent(newGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
+                                .addComponent(resetGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
                                 .addGroup(gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                 .addComponent(modeLabel)
@@ -402,6 +408,7 @@ public class GUI {
                         .addComponent(workCanvas)
                         .addGroup(gl.createSequentialGroup()
                                 .addComponent(newGame)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
                                 .addGap(0, frame.getWidth(), frame.getWidth())
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
@@ -430,8 +437,8 @@ public class GUI {
                         .addComponent(workCanvas)
                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.CENTER)
-                                .addComponent(newGame)
-                                .addComponent(resetGame)
+                                .addComponent(newGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
+                                .addComponent(resetGame, GroupLayout.Alignment.CENTER, gl.PREFERRED_SIZE, 40, 40)
                                 .addGroup(gl.createSequentialGroup()
                                         .addGroup(gl.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                                 .addComponent(modeLabel)
