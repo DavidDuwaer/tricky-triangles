@@ -7,7 +7,10 @@ package Graph;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -50,12 +53,53 @@ public class GraphFactory {
         return graph;
     }
     
-    public Graph createDelaunayTriangulation(Collection<Vertex> pointSet)
+    public Graph createDelaunayTriangulation(Collection<Vertex> vertexSet)
     {
         Graph graph = new Graph();
         /*
-         * TODO: build random graph
+         * TODO: build random triangulation
          */
+        return graph;
+    }
+    
+    public Graph createConvexHull(Collection<Vertex> pointSet)
+    {
+        Graph graph = new Graph();
+        
+        for(Vertex v : pointSet){
+            graph.addVertex(v);
+        }
+        List<Vertex> P = new ArrayList<Vertex>();
+        for(Vertex v: pointSet){
+            P.add(v);
+        }
+        
+        int n = P.size(), k=0;
+        ArrayList<Vertex> H = new ArrayList<Vertex>();
+        Collections.sort(P,new Comparator<Vertex>(){
+                     public int compare(Vertex s1,Vertex s2){
+                             return s1.compareTo(s2);
+                     }});
+        for (int i = 0; i<n; i++){
+            while (k>=2 && Vertex.cross(H.get(k-2), H.get(k-1), P.get(i))<=0){
+                k--;
+            }
+            H.add(k, P.get(i));
+            k++;
+        }
+        for (int i = n-2, t=k+1; i>=0; i--){
+            while (k>=2 && Vertex.cross(H.get(k-2), H.get(k-1), P.get(i))<=0){
+                k--;
+            }
+            H.add(k, P.get(i));
+            k++;
+        }
+        while (H.size() >k){
+            H.remove(k);
+        }
+        for(int i = 1; i < H.size() ;i++){
+            graph.addEdge(H.get(i-1), H.get(i));
+        }
         return graph;
     }
     
@@ -73,4 +117,5 @@ public class GraphFactory {
         );
         return vertex;
     }
+    
 }
