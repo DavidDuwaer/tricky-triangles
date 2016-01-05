@@ -6,6 +6,9 @@ import java.awt.Container;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +33,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class GUI {
 
     JFrame frame;
+    
+    Boolean layoutHorizontal;
     
     Panel workCanvas;
     Panel goalCanvas;
@@ -57,14 +62,26 @@ public class GUI {
         frame = new JFrame();
         frame.setTitle("Tricky Triangles");
         frame.setSize(800, 500);
+        layoutHorizontal = frame.getWidth() > 1.1 * frame.getHeight();
         frame.setLocation(20, 20);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.getContentPane().setBackground( Color.BLACK );
-
         Container pane = frame.getContentPane();
         GroupLayout gl = new GroupLayout(pane);
         pane.setLayout(gl);
         gl.setAutoCreateContainerGaps(true);
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                if (frame.getWidth() > 1.1 * frame.getHeight() ^ layoutHorizontal)
+                {
+                    super.componentResized(e); //To change body of generated methods, choose Tools | Templates.
+                    layoutHorizontal = frame.getWidth() > 1.1 * frame.getHeight();
+                    makeLayout(gl);
+                }
+            }
+        });
 
         /*
          * Canvas
