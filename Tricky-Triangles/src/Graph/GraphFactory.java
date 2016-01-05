@@ -5,7 +5,9 @@
  */
 package Graph;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 /**
  *
@@ -13,7 +15,33 @@ import java.util.Collection;
  */
 public class GraphFactory {
     
-    public Graph createRandomTriangulation(Collection<Vertex> pointSet)
+    public Graph createGraphWithOnlyPoints(Collection<Vertex> points)
+    {
+        Graph graph = new Graph();
+        for (Vertex v : points)
+        {
+            graph.addVertex(v);
+        }
+        return graph;
+    }
+    
+    public Graph createRandomGraphFromPoints(Collection<Vertex> points)
+    {
+        Graph graph = createGraphWithOnlyPoints(points);
+        Random generator = new Random();
+        int n = (int) Math.floor(generator.nextDouble() * points.size() * (points.size() - 1));
+        int ii, jj;
+        Vertex pointsArray[] = points.toArray(new Vertex[points.size()]);
+        for (int i = 0; i < n; i++)
+        {
+            ii = generator.nextInt(points.size());
+            jj = generator.nextInt(points.size());
+            graph.addEdge(pointsArray[ii], pointsArray[jj]);
+        }
+        return graph;
+    }
+    
+    public Graph createRandomTriangulation(Collection<Vertex> vertexSet)
     {
         Graph graph = new Graph();
         /*
@@ -29,5 +57,20 @@ public class GraphFactory {
          * TODO: build random graph
          */
         return graph;
+    }
+    
+    /*
+     * Creates a vertex with a random position (x, y) such that 0<=x<=1 and
+     * 0<=y<=1.
+     */
+    public Vertex createRandomVertex(int id)
+    {
+        Random generator = new Random();
+        Vertex vertex = new Vertex(
+                generator.nextDouble(),
+                generator.nextDouble(),
+                id
+        );
+        return vertex;
     }
 }
