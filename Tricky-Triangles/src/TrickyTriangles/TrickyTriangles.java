@@ -41,6 +41,7 @@ public class TrickyTriangles {
     
     public void run() {
         n = 5;
+        mode = Mode.MOVE_TO_TARGET;
 
         graphFactory = new GraphFactory();
 
