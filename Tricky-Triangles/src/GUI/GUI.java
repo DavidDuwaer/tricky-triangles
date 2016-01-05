@@ -37,6 +37,7 @@ public class GUI {
     TrickyTriangles main;
     
     JFrame frame;
+    Container pane;
     
     Boolean layoutHorizontal;
     
@@ -72,10 +73,6 @@ public class GUI {
         frame.setLocation(20, 20);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.getContentPane().setBackground( Color.BLACK );
-        Container pane = frame.getContentPane();
-        GroupLayout gl = new GroupLayout(pane);
-        pane.setLayout(gl);
-        gl.setAutoCreateContainerGaps(true);
         frame.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e)
@@ -84,7 +81,7 @@ public class GUI {
                 {
                     super.componentResized(e); //To change body of generated methods, choose Tools | Templates.
                     layoutHorizontal = frame.getWidth() > 1.1 * frame.getHeight();
-                    makeLayout(gl);
+                    makeLayout();
                 }
             }
         });
@@ -107,7 +104,7 @@ public class GUI {
                 frame.remove(goalCanvas);
                 workCanvas = new Panel(main.getWorkGraph());
                 goalCanvas = new Panel(main.getGoalGraph());
-                makeLayout(gl);
+                makeLayout();
             }
         });
 
@@ -122,7 +119,7 @@ public class GUI {
                 main.resetGame();
                 frame.remove(workCanvas);
                 workCanvas = new Panel(main.getWorkGraph());
-                makeLayout(gl);
+                makeLayout();
             }
         });
         
@@ -157,7 +154,7 @@ public class GUI {
                     frame.remove(goalCanvas);
                     workCanvas = new Panel(main.getWorkGraph());
                     goalCanvas = new Panel(main.getGoalGraph());
-                    makeLayout(gl);
+                    makeLayout();
                 }
                 else
                 {
@@ -197,7 +194,7 @@ public class GUI {
                     frame.remove(goalCanvas);
                     workCanvas = new Panel(main.getWorkGraph());
                     goalCanvas = new Panel(main.getGoalGraph());
-                    makeLayout(gl);
+                    makeLayout();
                 }
                 else
                 {
@@ -215,12 +212,18 @@ public class GUI {
         /*
          * Make layout
          */
-        makeLayout(gl);
+        makeLayout();
 
         frame.setVisible(true);
     }
 
-    private void makeLayout(GroupLayout gl) {
+    private void makeLayout() {
+        pane = frame.getContentPane();
+        GroupLayout gl = new GroupLayout(pane);
+        pane.setLayout(gl);
+        //pane.setBackground(Color.WHITE);
+        gl.setAutoCreateContainerGaps(true);
+        
         if (layoutHorizontal)
         {
             if (main.getMode() == TrickyTriangles.Mode.MOVE_TO_TARGET)
@@ -235,7 +238,7 @@ public class GUI {
                                 .addComponent(newGame)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
-                                .addGap(0, frame.getWidth(), frame.getWidth())
+                                .addGap(0, frame.getWidth()*3, frame.getWidth()*3)
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(gl.createSequentialGroup()
                                                 .addContainerGap(0, 0)
@@ -292,7 +295,7 @@ public class GUI {
                                 .addComponent(newGame)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
-                                .addGap(0, frame.getWidth(), frame.getWidth())
+                                .addGap(0, frame.getWidth()*3, frame.getWidth()*3)
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(gl.createSequentialGroup()
                                                 .addContainerGap(0, 0)
@@ -352,7 +355,7 @@ public class GUI {
                                 .addComponent(newGame)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
-                                .addGap(0, frame.getWidth(), frame.getWidth())
+                                .addGap(0, frame.getWidth()*3, frame.getWidth()*3)
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(gl.createSequentialGroup()
                                                 .addContainerGap(0, 0)
@@ -410,7 +413,7 @@ public class GUI {
                                 .addComponent(newGame)
                                 .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(resetGame)
-                                .addGap(0, frame.getWidth(), frame.getWidth())
+                                .addGap(0, frame.getWidth()*3, frame.getWidth()*3)
                                 .addGroup(gl.createParallelGroup(GroupLayout.Alignment.TRAILING)
                                         .addGroup(gl.createSequentialGroup()
                                                 .addContainerGap(0, 0)
