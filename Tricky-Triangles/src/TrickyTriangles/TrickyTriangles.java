@@ -104,6 +104,16 @@ public class TrickyTriangles {
     {
         return this.mode;
     }
+    
+    public void setNoPoints(int n)
+    {
+        this.n = n;
+    }
+    
+    public int getNoPoints()
+    {
+        return this.n;
+    }
 
     public static void main(String[] args) {
         try {
