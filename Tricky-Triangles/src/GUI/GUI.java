@@ -62,7 +62,7 @@ public class GUI {
         frame = new JFrame();
         frame.setTitle("Tricky Triangles");
         frame.setSize(800, 500);
-        layoutHorizontal = frame.getWidth() > 1.1 * frame.getHeight();
+        layoutHorizontal = frame.getWidth() > frame.getHeight();
         frame.setLocation(20, 20);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //frame.getContentPane().setBackground( Color.BLACK );
@@ -74,7 +74,7 @@ public class GUI {
             @Override
             public void componentResized(ComponentEvent e)
             {
-                if (frame.getWidth() > 1.1 * frame.getHeight() ^ layoutHorizontal)
+                if (frame.getWidth() > frame.getHeight() ^ layoutHorizontal)
                 {
                     super.componentResized(e); //To change body of generated methods, choose Tools | Templates.
                     layoutHorizontal = frame.getWidth() > 1.1 * frame.getHeight();
@@ -215,7 +215,7 @@ public class GUI {
     }
 
     private void makeLayout(GroupLayout gl) {
-        if (frame.getWidth() > 1.1 * frame.getHeight())
+        if (layoutHorizontal)
         {
             gl.setHorizontalGroup(gl.createParallelGroup()
                     .addGroup(gl.createSequentialGroup()
