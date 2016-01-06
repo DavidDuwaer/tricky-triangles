@@ -6,6 +6,7 @@ import Graph.Vertex;
 import TrickyTriangles.TrickyTriangles;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -26,6 +27,10 @@ public class Panel extends JPanel implements MouseListener{
         this.graph = graph;
         setBorder(new StrokeBorder(new BasicStroke(1f)));
         setBackground(new Color(91, 155, 213));
+        
+        /*
+         * Set click listener
+         */
     }
     
     public void set(Graph g){
@@ -41,8 +46,22 @@ public class Panel extends JPanel implements MouseListener{
         graphics.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
+
+        for (Edge edge : graph.getEdges())
+        {
+            g.setColor(Color.black);
+            graphics.drawLine(
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * 0.8) + 6,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * 0.8) + 6,
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[1].getPos()[0] * getWidth() * 0.8) + 6,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * 0.8 + 6)
+            );
+        }
+        
         for(Vertex vertex : graph.getVertices())
         {
+        
+            g.setColor(Color.black);
             graphics.fillRoundRect(
                     (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * 0.8),
                     (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * 0.8),
@@ -50,6 +69,14 @@ public class Panel extends JPanel implements MouseListener{
                     12,
                     12,
                     12);
+            g.setColor(new Color(91, 155, 213));
+            graphics.fillRoundRect(
+                    (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * 0.8 + 2),
+                    (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * 0.8 + 2),
+                    8,
+                    8,
+                    8,
+                    8);
 //            g.drawOval(
 //                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()),
 //                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()),
@@ -62,15 +89,6 @@ public class Panel extends JPanel implements MouseListener{
 //                    (int) (vertex.getPos()[0] * getWidth()) + 1,
 //                    (int) (vertex.getPos()[1] * getHeight()) + 1
 //            );
-        }
-        for (Edge edge : graph.getEdges())
-        {
-            graphics.drawLine(
-                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * 0.8) + 6,
-                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * 0.8) + 6,
-                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[1].getPos()[0] * getWidth() * 0.8) + 6,
-                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * 0.8 + 6)
-            );
         }
 //        g.drawOval(0, 0, getWidth(), getHeight());
     }
