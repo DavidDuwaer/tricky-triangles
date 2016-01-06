@@ -92,6 +92,10 @@ public class TrickyTriangles {
     public Graph getWorkGraph() {
         return workGraph;
     }
+    
+    public Graph getWorkGraphInitial() {
+        return workGraphInitial;
+    }
 
     public Graph getGoalGraph() {
         return goalGraph;
