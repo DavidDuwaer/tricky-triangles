@@ -24,6 +24,14 @@ public class Vertex {
         return id;
     }
     
+    public double getx(){
+        return x;
+    }
+    
+    public double gety(){
+        return y;
+    }
+    
     public static double cross(Vertex A, Vertex B, Vertex O){
         return (A.x - O.x)*(B.y-O.y) - (A.y - O.y)*(B.x-O.x);
     }

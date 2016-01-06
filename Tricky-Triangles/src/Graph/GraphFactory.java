@@ -53,12 +53,58 @@ public class GraphFactory {
         return graph;
     }
     
-    public Graph createDelaunayTriangulation(Collection<Vertex> vertexSet)
+    public Graph createDelaunayTriangulation(Collection<Vertex> pointSet)
     {
         Graph graph = new Graph();
-        /*
-         * TODO: build random triangulation
-         */
+        for(Vertex v : pointSet){
+            graph.addVertex(v);
+        }
+        // Initialize T as a the points of the lare triangle (v1,v2,v3) containing
+        // all point from pointSet
+        ArrayList<Vertex> T = new ArrayList<Vertex>();
+        Vertex v1 = new Vertex(0,Integer.MAX_VALUE,-1);
+        Vertex v2 = new Vertex(Integer.MAX_VALUE,Integer.MAX_VALUE,-1);
+        Vertex v3 = new Vertex(Integer.MIN_VALUE,Integer.MAX_VALUE,-1);
+        T.add(v1);
+        T.add(v2);
+        T.add(v3);
+        
+        // Initialize D as a lare triangle (v1,v2,v3) containing
+        // all point from pointSet
+        ArrayList<Triangle> D = new ArrayList<Triangle>();
+        D.add(new Triangle(v1,v2,v3));
+        Iterator<Triangle> DI = D.iterator();
+        // Add all the vertices one by one in T
+        for(Vertex pr : pointSet){
+            // Find triangle in D containing pr
+            while(DI.hasNext()){
+                Triangle t = DI.next();
+                // if pr lies in/on triangle (v1,v2,v2) then
+                if(t.PointInTriangle(pr)){
+                    // if pr lies on trinagle (v1,v2,v3) then
+                   if(t.PointOnTriangle(pr)){
+                       
+                   } else {
+                       // add edges from pr to v1,v2,v3
+                       graph.addEdge(pr, t.v1);
+                       graph.addEdge(pr, t.v2);
+                       graph.addEdge(pr, t.v3);
+                       
+                      // add triangle from pr to v1,v2,v3
+                      D.add(new Triangle(pr, t.v1,t.v2));
+                      D.add(new Triangle(pr, t.v1,t.v3));
+                      D.add(new Triangle(pr, t.v3,t.v2));
+                      
+                      // remove triangle (v1,v2,v3)
+                      DI.remove();
+                      
+                      graph.legalizeEdge(pr, v1,v2,T);
+                      graph.legalizeEdge(pr, v1,v3,T);
+                      graph.legalizeEdge(pr, v3,v2,T);
+                   }
+                }
+            }
+        }
         return graph;
     }
     

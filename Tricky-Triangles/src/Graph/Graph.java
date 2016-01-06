@@ -51,6 +51,12 @@ public class Graph {
         e.t[1].v = new Vertex[] {v1,v2,c2};
     }
     
+    public void legalizeEdge(Vertex v1, Vertex v2, Vertex v3, ArrayList<Vertex> T){
+        if(true /*illigale */){
+            flipEdge(new Edge(v1,v2));
+        }
+    }
+    
     public Graph(){
         this.v = new HashSet<>();
         this.e = new HashSet<>();
