@@ -139,7 +139,8 @@ public class GUI {
             public void actionPerformed(ActionEvent event)
             {
                 String[] options = {"OK", "Cancel"};
-                if(JOptionPane.showOptionDialog(
+                if(main.getWorkGraph().equals(main.getWorkGraphInitial())
+                        || JOptionPane.showOptionDialog(
                         frame, 
                         "Do you want to start a new game with the new settings?", 
                         "Change game settings", 
@@ -179,7 +180,8 @@ public class GUI {
             public void actionPerformed(ActionEvent event)
             {
                 String[] options = {"OK", "Cancel"};
-                if(JOptionPane.showOptionDialog(
+                if(main.getWorkGraph().equals(main.getWorkGraphInitial())
+                        || JOptionPane.showOptionDialog(
                         frame, 
                         "Do you want to start a new game with the new settings?", 
                         "Change game settings", 
