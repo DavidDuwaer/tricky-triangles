@@ -57,9 +57,10 @@ public class TrickyTriangles {
     public void newGame()
     {
         Set<Vertex> pointSet = createRandomPointSet();
-        workGraph = graphFactory.createGraphWithOnlyPoints(pointSet);
+        //workGraph = graphFactory.createGraphWithOnlyPoints(pointSet);
         System.out.println("");
         //workGraph = graphFactory.createRandomGraphFromPoints(pointSet);
+        workGraph = graphFactory.createDelaunayTriangulation(pointSet);
         workGraphInitial = new Graph(workGraph); // make a copy of workGraph
         //goalGraph = graphFactory.createRandomGraphFromPoints(pointSet);
         goalGraph = graphFactory.createDelaunayTriangulation(pointSet);

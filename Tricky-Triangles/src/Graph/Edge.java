@@ -43,4 +43,26 @@ public class Edge {
         double C = Math.acos((Math.pow(b, 2)+Math.pow(a, 2) - Math.pow(c, 2))/2*b*a);
         return Math.min(C, B);
     }
+    double angle(Vertex vertex){
+        double a = Math.sqrt(Math.pow(this.v[0].getx() - this.v[1].getx(), 2) +
+                Math.pow(this.v[0].gety() - this.v[1].gety(), 2));
+        double b = Math.sqrt(Math.pow(this.v[0].getx() - vertex.getx(), 2) +
+                Math.pow(this.v[0].gety() - vertex.gety(), 2));
+        double c = Math.sqrt(Math.pow(this.v[1].getx() - vertex.getx(), 2) +
+                Math.pow(this.v[1].gety() - vertex.gety(), 2));
+        double B = Math.acos((Math.pow(a, 2)+Math.pow(c, 2) - Math.pow(b, 2))/2*a*c);
+        double C = Math.acos((Math.pow(b, 2)+Math.pow(a, 2) - Math.pow(c, 2))/2*b*a);
+        return C;
+    }
+    double angle2(Vertex vertex){
+        double a = Math.sqrt(Math.pow(this.v[0].getx() - this.v[1].getx(), 2) +
+                Math.pow(this.v[0].gety() - this.v[1].gety(), 2));
+        double b = Math.sqrt(Math.pow(this.v[0].getx() - vertex.getx(), 2) +
+                Math.pow(this.v[0].gety() - vertex.gety(), 2));
+        double c = Math.sqrt(Math.pow(this.v[1].getx() - vertex.getx(), 2) +
+                Math.pow(this.v[1].gety() - vertex.gety(), 2));
+        double B = Math.acos((Math.pow(a, 2)+Math.pow(c, 2) - Math.pow(b, 2))/2*a*c);
+        double C = Math.acos((Math.pow(b, 2)+Math.pow(a, 2) - Math.pow(c, 2))/2*b*a);
+        return B;
+    }
 }

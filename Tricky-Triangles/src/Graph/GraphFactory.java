@@ -52,19 +52,16 @@ public class GraphFactory {
         Graph graph = new Graph();
         for (Vertex v : pointSet) {
             graph.addVertex(v);
-            System.out.println(v.getx());
         }
 
-        Vertex bv1 = new Vertex(0, Integer.MAX_VALUE, -1);
-        Vertex bv2 = new Vertex(Integer.MIN_VALUE, Integer.MIN_VALUE, -1);
-        Vertex bv3 = new Vertex(Integer.MAX_VALUE, Integer.MIN_VALUE, -1);
-
+        // create triangle that conaints all the points of pointSet
+        Vertex bv1 = new Vertex(0, 1000, 200);
+        Vertex bv2 = new Vertex(-1000, -1000, 200);
+        Vertex bv3 = new Vertex(1000, -1000, 200);
         Edge bv1v2 = new Edge(bv1, bv2);
         Edge bv2v3 = new Edge(bv2, bv3);
         Edge bv3v1 = new Edge(bv3, bv1);
-
-        Triangle tri = new Triangle(bv1,bv2,bv3);
-
+        Triangle tri = new Triangle(bv1, bv2, bv3);
         bv1v2.t[0] = tri;
         bv2v3.t[0] = tri;
         bv3v1.t[0] = tri;
@@ -86,6 +83,9 @@ public class GraphFactory {
                 }
             }
             // make new edges
+            if(bigTriangle== null){
+                System.out.println("big triangle null");
+            }
             Edge prv0 = new Edge(pr, bigTriangle.v[0]);
             Edge prv1 = new Edge(pr, bigTriangle.v[1]);
             Edge prv2 = new Edge(pr, bigTriangle.v[2]);
@@ -118,6 +118,9 @@ public class GraphFactory {
                     }
                 }
             }
+            if(v0v1 == null || v2v0 == null || v1v2 == null){
+                System.out.println("niet alle edges zijn gevonden");
+            }
 
             //add triangles to edges
             prv0.t[0] = prv0v1;
@@ -139,17 +142,20 @@ public class GraphFactory {
             graph.addTriangle(prv0v1);
             graph.addTriangle(prv0v2);
             graph.addTriangle(prv2v1);
-            
+
             //Legalize new edges
+            if (v0v1 == null || v2v0 == null || v1v2 == null) {
+                System.out.println("hier2");
+            }
             graph.legalizeEdge(pr, v0v1);
             graph.legalizeEdge(pr, v2v0);
             graph.legalizeEdge(pr, v1v2);
-            
+
         }
         //remove triangle (v1,v2,v3) and incident edges
-        graph.removeVertex(bv1);
-        graph.removeVertex(bv2);
-        graph.removeVertex(bv3);
+        //graph.removeVertex(bv1);
+        //graph.removeVertex(bv2);
+        //graph.removeVertex(bv3);
 
         return graph;
     }

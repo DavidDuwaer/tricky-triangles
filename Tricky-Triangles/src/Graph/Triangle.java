@@ -15,6 +15,10 @@ public class Triangle {
         this.v[1] = v2;
         this.v[2] = v3;
     }
+    public Vertex[] getTriangles()
+    {
+        return v;
+    }
 
     double sign(Vertex p1, Vertex p2, Vertex p3) {
         return (p1.getx() - p3.getx()) * (p2.gety() - p3.gety()) - (p2.getx() - p3.getx()) * (p1.gety() - p3.gety());
@@ -53,4 +57,6 @@ public class Triangle {
         double C = Math.acos((Math.pow(b, 2)+Math.pow(a, 2) - Math.pow(c, 2))/2*b*a);
         return Math.min(A, Math.min(C, B));
     }
+    
+    
 }
