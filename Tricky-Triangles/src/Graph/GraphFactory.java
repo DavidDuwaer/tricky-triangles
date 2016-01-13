@@ -79,6 +79,7 @@ public class GraphFactory {
                 bigTriangle = null;
                 if (t.PointInTriangle(pr)) {
                     bigTriangle = t;
+                    System.out.println(t.v[0]);
                     break;
                 }
             }
@@ -155,9 +156,9 @@ public class GraphFactory {
 
         }
         //remove triangle (v1,v2,v3) and incident edges
-        //graph.removeVertex(bv1);
-        //graph.removeVertex(bv2);
-        //graph.removeVertex(bv3);
+        graph.removeVertex(bv1);
+        graph.removeVertex(bv2);
+        graph.removeVertex(bv3);
 
         return graph;
     }
