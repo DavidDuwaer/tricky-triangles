@@ -37,7 +37,9 @@ public class Panel extends JPanel implements MouseListener{
         graph = g;
     }
     
-    // Draw graph
+    /*
+     * Draw graph
+     */
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -77,20 +79,7 @@ public class Panel extends JPanel implements MouseListener{
                     8,
                     8,
                     8);
-//            g.drawOval(
-//                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()),
-//                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()),
-//                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()) + g.,
-//                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()) + 2
-//            );
-//            g.drawOval(
-//                    (int) (vertex.getPos()[0] * getWidth()),
-//                    (int) (vertex.getPos()[1] * getHeight()),
-//                    (int) (vertex.getPos()[0] * getWidth()) + 1,
-//                    (int) (vertex.getPos()[1] * getHeight()) + 1
-//            );
         }
-//        g.drawOval(0, 0, getWidth(), getHeight());
     }
     
     
