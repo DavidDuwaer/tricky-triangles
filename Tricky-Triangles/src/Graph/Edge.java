@@ -24,6 +24,24 @@ public class Edge {
         return v;
     }
     
+    public boolean equals(Vertex v1, Vertex v2){
+        if(this.v[0] == v1 && this.v[1] == v2){
+            return true;
+        } else if(this.v[0] == v1 && this.v[1] == v2){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public void replace(Triangle t1, Triangle t2){
+        if(this.t[0] == t1){
+            this.t[0] = t2;
+        } else {
+            this.t[1] = t2;
+        }
+    }
+    
     public void addTriangle(Triangle t){
         if(this.t[0] == null){
             this.t[0] = t;

@@ -55,50 +55,77 @@ public class Graph {
         this.removeTriangleSpec(t[0]);
         this.removeTriangleSpec(t[1]);
     }
-    
+
+    public Vertex findAdPoint(Vertex pr, Edge pipj) {
+        // vertices of triangle 0
+        ArrayList<Vertex> vertices1 = new ArrayList<>();
+        vertices1.addAll(Arrays.asList(pipj.t[0].v));
+
+        // vertices of triangle 1
+        ArrayList<Vertex> vertices2 = new ArrayList<>();
+        vertices2.addAll(Arrays.asList(pipj.t[1].v));
+
+        vertices1.removeAll(vertices2);
+        vertices2.removeAll(vertices1);
+
+        Vertex c1, c2;
+
+        c1 = vertices1.get(0);
+        c2 = vertices2.get(0);
+        if (c1 == pr) {
+            return c2;
+        } else {
+            return c1;
+        }
+    }
 
     public void legalizeEdge(Vertex pr, Edge pipj) {
-        Vertex ph = null; //find in edjusted triangle new point ph
-        Triangle[] test = pipj.t;
-        if(pipj.t[1] == null || pipj.t[0]==null){
-            return;
-        }
-        for (int i = 0; i < 2; i++) {
-            if (pipj.t[i].v[0] != pr && pipj.t[i].v[0] != pipj.v[0] && pipj.t[i].v[0] != pipj.v[1]) {
-                ph = pipj.t[i].v[0];
-            } else if (pipj.t[i].v[1] != pr && pipj.t[i].v[1] != pipj.v[0] && pipj.t[i].v[1] != pipj.v[1]) {
-                ph = pipj.t[i].v[1];
-            } else if (pipj.t[i].v[2] != pr && pipj.t[i].v[2] != pipj.v[0] && pipj.t[i].v[2] != pipj.v[1]) {
-                ph = pipj.t[i].v[2];
-            }
-        }
-        Edge edge = new Edge(pr, ph);
-        
-        
-        //if(ph.gety() >2  || ph.gety() < -2){
-        //    return;
-        //}
-        if(ph == null){
-            return;
-        }
-        
-        if(pipj.angle(ph) < Math.PI/2 || pipj.angle2(ph) < Math.PI/2 ){
+        // Check if pipj is not an outer edge
+        if (pipj.t[1] == null || pipj.t[0] == null) {
             return;
         }
 
-        if (Math.min(pipj.smallestAngle(pr), pipj.smallestAngle(ph)) < Math.min(edge.smallestAngle(pipj.v[0]), edge.smallestAngle(pipj.v[1]))/* && hoek1 <90 && hoek2<90 && min a > min b illigale */) {
-            //flipEdge(pipj);
-            System.out.println("hoek" + edge.smallestAngle(pipj.v[0]));
-            Triangle th0 = new Triangle(pr,ph,pipj.v[0]);
-            Triangle th1 = new Triangle(pr,ph,pipj.v[1]);
-            edge.t[0] = th0;
-            edge.t[1] = th1;
+        Vertex ph = this.findAdPoint(pr, pipj); //find in edjusted triangle new point ph
+
+        Edge edge = new Edge(pr, ph);
+        Triangle th0 = new Triangle(pr, ph, pipj.v[0]);
+        Triangle th1 = new Triangle(pr, ph, pipj.v[1]);
+        edge.t[0] = th0;
+        edge.t[1] = th1;
+
+        if (ph == null) {
+            return;
+        }
+
+        if (pipj.angle(ph) < Math.PI / 2 || pipj.angle2(ph) < Math.PI / 2) {
+            return;
+        }
+
+        if (Math.min(pipj.smallestAngle(pr), pipj.smallestAngle(ph))
+                < Math.min(edge.smallestAngle(pipj.v[0]), edge.smallestAngle(pipj.v[1]))) {
+            
+            //update the adusted edges
+            for(Edge e: this.getEdges()){
+                if(e.equals(pr, pipj.v[0])){
+                    e.addTriangle(th0);
+                } else if(e.equals(ph, pipj.v[0])){
+                    e.addTriangle(th0);
+                } else if(e.equals(pr, pipj.v[1])){
+                    e.addTriangle(th1);
+                } else if(e.equals(ph, pipj.v[1])){
+                    e.addTriangle(th1);
+                }
+            }
+            
+            //flip edge
             this.removeEdge(pipj);
             this.addEdge(edge);
+            //add new trinagles and remove old ones
             this.addTriangle(th0);
             this.addTriangle(th1);
             this.removeTriangleSpec(pipj.t[0]);
             this.removeTriangleSpec(pipj.t[1]);
+            
             int j;
             if (pipj.t[0].v[0] == ph || pipj.t[0].v[1] == ph || pipj.t[0].v[2] == ph) {
                 j = 1;
@@ -140,7 +167,7 @@ public class Graph {
         }
         return edges;
     }
-    
+
     public Set<Triangle> getTriangle() {
         HashSet triangles = new HashSet<Triangle>();
         for (Triangle tringle : t) {

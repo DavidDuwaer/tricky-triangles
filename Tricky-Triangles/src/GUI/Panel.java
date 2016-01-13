@@ -57,6 +57,7 @@ public class Panel extends JPanel implements MouseListener {
                     (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * 0.8 + 6)
             );
         }
+        /*
         int i = 0;
         for (Triangle t : graph.getTriangle()) {
             double a = Math.sqrt(Math.pow(t.getTriangles()[0].getx() - t.getTriangles()[1].getx(), 2) +
@@ -71,7 +72,7 @@ public class Panel extends JPanel implements MouseListener {
                     (int) Math.floor(getWidth()*0.8*rad), 
                     (int) Math.floor(getWidth()*0.8*rad));
             i++;
-        }
+        }*/
 
         for (Vertex vertex : graph.getVertices()) {
 
