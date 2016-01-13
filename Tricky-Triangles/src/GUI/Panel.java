@@ -37,8 +37,10 @@ public class Panel extends JPanel implements MouseListener {
     public void set(Graph g) {
         graph = g;
     }
-
-    // Draw graph
+    
+    /*
+     * Draw graph
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -59,6 +61,7 @@ public class Panel extends JPanel implements MouseListener {
         }
         /*
         int i = 0;
+<<<<<<< HEAD
         for (Triangle t : graph.getTriangle()) {
             double a = Math.sqrt(Math.pow(t.getTriangles()[0].getx() - t.getTriangles()[1].getx(), 2) +
                 Math.pow(t.getTriangles()[0].gety() - t.getTriangles()[1].gety(), 2));
@@ -73,6 +76,22 @@ public class Panel extends JPanel implements MouseListener {
                     (int) Math.floor(getWidth()*0.8*rad));
             i++;
         }*/
+=======
+//        for (Triangle t : graph.getTriangle()) {
+//            double a = Math.sqrt(Math.pow(t.getTriangles()[0].getx() - t.getTriangles()[1].getx(), 2) +
+//                Math.pow(t.getTriangles()[0].gety() - t.getTriangles()[1].gety(), 2));
+//        double b = Math.sqrt(Math.pow(t.getTriangles()[0].getx() - t.getTriangles()[2].getx(), 2) +
+//                Math.pow(t.getTriangles()[0].gety() - t.getTriangles()[2].gety(), 2));
+//        double c = Math.sqrt(Math.pow(t.getTriangles()[1].getx() - t.getTriangles()[2].getx(), 2) +
+//                Math.pow(t.getTriangles()[1].gety() - t.getTriangles()[2].gety(), 2));
+//            g.setColor(Color.black);
+//            double rad = (a*b*c)/(Math.sqrt((a+b+c)*(b+c-a)*(c+a-b)*(a+b-c)));
+//            graphics.drawOval(10+10*i, 10+10*i, 
+//                    (int) Math.floor(getWidth()*0.8*rad), 
+//                    (int) Math.floor(getWidth()*0.8*rad));
+//            i++;
+//        }
+>>>>>>> e4a1d7100c1e03e73df2c81eecdef2737c9e5169
 
         for (Vertex vertex : graph.getVertices()) {
 
@@ -92,20 +111,7 @@ public class Panel extends JPanel implements MouseListener {
                     8,
                     8,
                     8);
-//            g.drawOval(
-//                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()),
-//                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()),
-//                    (int) Math.floor(vertex.getPos()[0] * (double) getWidth()) + g.,
-//                    (int) Math.floor(vertex.getPos()[1] * (double) getHeight()) + 2
-//            );
-//            g.drawOval(
-//                    (int) (vertex.getPos()[0] * getWidth()),
-//                    (int) (vertex.getPos()[1] * getHeight()),
-//                    (int) (vertex.getPos()[0] * getWidth()) + 1,
-//                    (int) (vertex.getPos()[1] * getHeight()) + 1
-//            );
         }
-//        g.drawOval(0, 0, getWidth(), getHeight());
     }
 
     @Override

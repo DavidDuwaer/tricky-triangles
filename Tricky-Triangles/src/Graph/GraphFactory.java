@@ -101,7 +101,8 @@ public class GraphFactory {
             Triangle prv2v1 = new Triangle(pr, bigTriangle.v[2], bigTriangle.v[1]);
 
             //update edges from big triangle
-            for (Edge e : graph.getEdges()) {
+            for (Edge e : graph.getEdges())
+            {
                 for (int i = 0; i < 2; i++) {
                     if (e.t[i] == bigTriangle) {
                         if ((e.v[0] == bigTriangle.v[0] && e.v[1] == bigTriangle.v[1]) || (e.v[1] == bigTriangle.v[0] && e.v[0] == bigTriangle.v[1])) {
@@ -118,6 +119,7 @@ public class GraphFactory {
                     }
                 }
             }
+            
             if(v0v1 == null || v2v0 == null || v1v2 == null){
                 System.out.println("niet alle edges zijn gevonden");
             }

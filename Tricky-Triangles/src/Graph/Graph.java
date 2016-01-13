@@ -16,7 +16,8 @@ public class Graph {
     private Set<Edge> e;
     private Set<Triangle> t;
 
-    public void flipEdge(Edge e) {
+    public void flipEdge(Edge e)
+    {
         Triangle[] t = e.t;
 
         // vertices of triangle 0
@@ -55,6 +56,7 @@ public class Graph {
         this.removeTriangleSpec(t[0]);
         this.removeTriangleSpec(t[1]);
     }
+<<<<<<< HEAD
 
     public Vertex findAdPoint(Vertex pr, Edge pipj) {
         // vertices of triangle 0
@@ -78,6 +80,8 @@ public class Graph {
             return c1;
         }
     }
+=======
+>>>>>>> e4a1d7100c1e03e73df2c81eecdef2737c9e5169
 
     public void legalizeEdge(Vertex pr, Edge pipj) {
         // Check if pipj is not an outer edge
