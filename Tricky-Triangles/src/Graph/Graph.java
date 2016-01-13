@@ -14,42 +14,52 @@ public class Graph {
     private Set<Vertex> v;
     private Set<Edge> e;
     
-    public void flipEdge(Edge e){
-        Triangle[] t = e.t;
+    public void flipEdge(Edge edge){
+        Triangle[] t = edge.t;
+
+        // Find the vertex unique to 0
+        ArrayList<Vertex> temp = new ArrayList<>();
+        temp.addAll(Arrays.asList(t[0].v));
+        temp.removeAll(Arrays.asList(t[1].v));
+        Vertex v1 = temp.get(0);
         
-        // vertices of triangle 0
-        ArrayList<Vertex> vertices1 = new ArrayList<>();
-        vertices1.addAll(Arrays.asList(t[0].v));
+        // Find the common vertices
+        temp = new ArrayList<>();
+        temp.addAll(Arrays.asList(t[0].v));
+        temp.remove(v1);
+        Vertex c1 = temp.get(0);
+        Vertex c2 = temp.get(1);
         
-        // vertices of triangle 1
-        ArrayList<Vertex> vertices2 = new ArrayList<>();
-        vertices2.addAll(Arrays.asList(t[1].v));
+        // Find the vertex unique to 1
+        temp = new ArrayList<>();
+        temp.addAll(Arrays.asList(t[1].v));
+        temp.remove(c1);
+        temp.remove(c2);
+        Vertex v2 = temp.get(0);
         
-        // vertices that the triangles have in common
-        ArrayList<Vertex> common = new ArrayList<>();
-        common.addAll(Arrays.asList(t[0].v));        
-        common.removeAll(vertices2);
+        // de triangles {c1,c2,v1}, {c1,c2,v2} worden nu {c1,v2,v1}, {v1,c2,v2}
+
+        edge.v[0] = v1;
+        edge.v[1] = v2;
         
-        Vertex c1, c2;
-        c1 = common.get(0);
-        c2 = common.get(1);
-                
-        vertices1.removeAll(common);
-        vertices2.removeAll(common);
+        for(Edge edge2: e){
+            if(edge2.t.length > 0){
+                for(int i = 0; i < 2; i++){
+                    if(edge2.t[i].contains(c1,c2,v1) || edge2.t[i].contains(c1,c2,v2)){
+                        if(edge2.contains(c1)){
+                            edge2.t[i].v = new Vertex[] {v1,v2,c1};
+                        } else {
+                            edge2.t[i].v = new Vertex[] {v1,v2,c2};
+                        }
+                    }
+                }
+            }
+        }
         
-        // vertices that are unique to the triangles
-        Vertex v1, v2;
-        v1 = vertices1.get(0);
-        v2 = vertices2.get(0);
-        
-        // noem de oude edge (b,d).
-        // de triangles {a,b,d}, {b,c,d} worden nu {a,c,d}, {b,c,a}
-        
-        e.v[0] = v1;
-        e.v[1] = v2;
-        e.t[0].v = new Vertex[] {v1,v2,c1};
-        e.t[1].v = new Vertex[] {v1,v2,c2};
+        edge.t[0].v = new Vertex[] {v1,v2,c1};
+        edge.t[1].v = new Vertex[] {v1,v2,c2};
     }
+
     
     public void legalizeEdge(Vertex v1, Vertex v2, Vertex v3, ArrayList<Vertex> T){
         if(true /*illigale */){

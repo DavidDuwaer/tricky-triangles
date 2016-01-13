@@ -19,6 +19,16 @@ public class Edge {
         v[1] = v2;
     }
     
+    boolean contains(Vertex w) {
+        for(Vertex vert: v){
+            if(vert.getID() == w.getID()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
     public Vertex[] getVertices()
     {
         return v;
