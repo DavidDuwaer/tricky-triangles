@@ -6,6 +6,7 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -40,11 +41,20 @@ public class GraphFactory {
         return graph;
     }
 
-    public Graph createRandomTriangulation(Collection<Vertex> vertexSet) {
+    public Graph createRandomTriangulation(Collection<Vertex> pointSet) {
         Graph graph = new Graph();
-        /*
-         * TODO: build random triangulation
-         */
+        graph = createDelaunayTriangulation(pointSet);
+        Edge[] edges = graph.getEdges().toArray(new Edge[graph.getEdges().size()]);
+        Random generator = new Random();
+        for (int i = 0; i < pointSet.size() * 2; i++)
+        {
+            float r = generator.nextFloat();
+            int ii = Math.round(r * (edges.length - 1));
+            if (edges[ii].t.length == 2)
+            {
+                graph.flipEdge(edges[ii]);
+            }
+        }
         return graph;
     }
 
