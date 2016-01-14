@@ -41,7 +41,7 @@ public class TrickyTriangles {
     private int n;
     
     public void run() {
-        n = 3;
+        n = 4;
         mode = Mode.MOVE_TO_TARGET;
 
         graphFactory = new GraphFactory();
@@ -59,7 +59,7 @@ public class TrickyTriangles {
     {
         Set<Vertex> pointSet = createRandomPointSet();
         //workGraph = graphFactory.createGraphWithOnlyPoints(pointSet);
-        workGraph = graphFactory.createRandomGraphFromPoints(pointSet);
+        workGraph = graphFactory.createRandomTriangulation(pointSet);
         //workGraph = graphFactory.createDelaunayTriangulation(pointSet);
         workGraphInitial = new Graph(workGraph); // make a copy of workGraph
         //goalGraph = graphFactory.createRandomGraphFromPoints(pointSet);

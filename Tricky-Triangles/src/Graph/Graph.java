@@ -337,6 +337,20 @@ public class Graph {
             if (e.v[0] == vertex || e.v[1] == vertex) {
                 this.removeEdge(e);
             }
+            if(e.t != null){
+                for(int i = 0; i < 2; i++){
+                    if(e.t[i] != null){
+                        if(e.t[i].contains(vertex)){
+                            e.t[i] = null;
+                        }
+                    }
+                }
+            }
+        }
+        for (Triangle tr: t){
+            if(tr.contains(vertex)){
+                tr = null;
+            }
         }
     }
 

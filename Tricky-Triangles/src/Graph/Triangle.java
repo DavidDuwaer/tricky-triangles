@@ -47,4 +47,13 @@ public class Triangle {
         return true;
     }
 
+    boolean contains(Vertex vertex) {
+        for(Vertex v: v){
+            if(v.getID() == vertex.getID()){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
