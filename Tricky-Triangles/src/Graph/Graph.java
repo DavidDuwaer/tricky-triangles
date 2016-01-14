@@ -33,11 +33,11 @@ public class Graph {
         ArrayList<Vertex> temp = new ArrayList<>();
         temp.addAll(Arrays.asList(tr[0].v));
         temp.removeAll(Arrays.asList(tr[1].v));
-        Vertex v1 = temp.get(0);
-        if(temp.size() > 1){
+        if(temp.size() > 1 || temp.isEmpty()){
             System.out.println("PANIEK! size temp ");
             return;
         }
+        Vertex v1 = temp.get(0);
         
         // Find the common vertices
         temp = new ArrayList<>();
@@ -51,8 +51,8 @@ public class Graph {
         temp.addAll(Arrays.asList(tr[1].v));
         temp.remove(c1);
         temp.remove(c2);
-        if(temp.size() > 1){
-            System.out.println("PANIEK! size temp 2");
+        if(temp.size() > 1 || temp.isEmpty()){
+            System.out.println("PANIEK! size temp ");
             return;
         }
         Vertex v2 = temp.get(0);

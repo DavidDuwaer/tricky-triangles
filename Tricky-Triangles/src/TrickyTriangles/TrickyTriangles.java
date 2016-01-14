@@ -87,11 +87,28 @@ public class TrickyTriangles {
     private Set<Vertex> createRandomPointSet() {
         Set<Vertex> set = new HashSet<>();
         for (int i = 0; i < n; i++) {
-            set.add(graphFactory.createRandomVertex(i));
+            Vertex v = graphFactory.createRandomVertex(i);
+            if(dist(new Vertex(0.5,0.5,-1),v) <= 0.5 && dist(set, v) >= 0.075){
+                set.add(v);
+            } else {
+                i--;
+                System.out.println("awww");
+            }
         }
         return set;
     }
+    
+    public double dist(Set<Vertex> set, Vertex v){
+        double toRet = 1000;
+        for(Vertex v2: set){
+            toRet = Math.min(toRet, dist(v,v2));
+        }
+        return toRet;
+    }
 
+    public double dist(Vertex v, Vertex v2){
+        return Math.sqrt( (v.getx()-v2.getx())*(v.getx()-v2.getx()) + (v.gety()-v2.gety())*(v.gety() - v2.gety()));
+    }
     public Graph getWorkGraph() {
         return workGraph;
     }
