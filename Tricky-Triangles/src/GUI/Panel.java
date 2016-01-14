@@ -41,6 +41,9 @@ public class Panel extends JPanel implements MouseListener {
     /*
      * Draw graph
      */
+    double debugMult = 0.8;
+    int debugOffset = 6;
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -53,10 +56,10 @@ public class Panel extends JPanel implements MouseListener {
         for (Edge edge : graph.getEdges()) {
             g.setColor(Color.black);
             graphics.drawLine(
-                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * 0.8) + 6,
-                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * 0.8) + 6,
-                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[1].getPos()[0] * getWidth() * 0.8) + 6,
-                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * 0.8 + 6)
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * debugMult) + debugOffset,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * debugMult) + debugOffset,
+                    (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[1].getPos()[0] * getWidth() * debugMult) + debugOffset,
+                    (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[1].getPos()[1] * getHeight() * debugMult + debugOffset)
             );
         }
         /*
@@ -91,20 +94,21 @@ public class Panel extends JPanel implements MouseListener {
 //            i++;
 //        }
 
+        int debugCircleSize = 12;
         for (Vertex vertex : graph.getVertices()) {
-
+            
             g.setColor(Color.black);
             graphics.fillRoundRect(
-                    (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * 0.8),
-                    (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * 0.8),
-                    12,
-                    12,
-                    12,
-                    12);
+                    (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * debugMult)+debugOffset-debugCircleSize/2,
+                    (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * debugMult)+debugOffset-debugCircleSize/2,
+                    debugCircleSize,
+                    debugCircleSize,
+                    debugCircleSize,
+                    debugCircleSize);
             g.setColor(new Color(91, 155, 213));
             graphics.fillRoundRect(
-                    (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * 0.8 + 2),
-                    (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * 0.8 + 2),
+                    (int) Math.floor((double) getWidth() * 0.1 + vertex.getPos()[0] * (double) getWidth() * debugMult + 2),
+                    (int) Math.floor((double) getHeight() * 0.1 + vertex.getPos()[1] * (double) getHeight() * debugMult + 2),
                     8,
                     8,
                     8,

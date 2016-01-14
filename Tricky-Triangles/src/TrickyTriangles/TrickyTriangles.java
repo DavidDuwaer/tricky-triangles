@@ -3,6 +3,7 @@ package TrickyTriangles;
 import GUI.GUI;
 import Graph.Graph;
 import Graph.GraphFactory;
+import Graph.Triangle;
 import Graph.Vertex;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +41,7 @@ public class TrickyTriangles {
     private int n;
     
     public void run() {
-        n = 5;
+        n = 3;
         mode = Mode.MOVE_TO_TARGET;
 
         graphFactory = new GraphFactory();
@@ -124,6 +125,7 @@ public class TrickyTriangles {
     }
 
     public static void main(String[] args) {
+        
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException ex) {

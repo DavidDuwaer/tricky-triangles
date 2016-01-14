@@ -5,6 +5,7 @@
  */
 package Graph;
 
+import GUI.GUI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,6 +19,8 @@ import java.util.*;
  */
 public class GraphFactory {
 
+    Random rnd = new Random();
+    
     public Graph createGraphWithOnlyPoints(Collection<Vertex> points) {
         Graph graph = new Graph();
         for (Vertex v : points) {
@@ -48,58 +51,70 @@ public class GraphFactory {
         return graph;
     }
 
+    public static void tick(){
+        try{
+            Thread.sleep(1000);
+        } catch(Exception e){}
+    }
+    
     public Graph createDelaunayTriangulation(Collection<Vertex> pointSet) {
+        
         Graph graph = new Graph();
         for (Vertex v : pointSet) {
             graph.addVertex(v);
         }
 
-        // create triangle that conaints all the points of pointSet
+        // create triangle that contains all the points of pointSet
         Vertex bv1 = new Vertex(0, 1000, 200);
-        Vertex bv2 = new Vertex(-1000, -1000, 200);
-        Vertex bv3 = new Vertex(1000, -1000, 200);
+        Vertex bv2 = new Vertex(-1000, -1000, 201);
+        Vertex bv3 = new Vertex(1000, -1000, 202);
         Edge bv1v2 = new Edge(bv1, bv2);
         Edge bv2v3 = new Edge(bv2, bv3);
         Edge bv3v1 = new Edge(bv3, bv1);
-        Triangle tri = new Triangle(bv1, bv2, bv3);
+        Triangle tri = new Triangle(bv1, bv2, bv3, bv1v2, bv2v3, bv3v1);
         bv1v2.t[0] = tri;
         bv2v3.t[0] = tri;
         bv3v1.t[0] = tri;
 
+        graph.addVertex(bv1);
+        graph.addVertex(bv2);
+        graph.addVertex(bv3);
         graph.addEdge(bv1v2);
         graph.addEdge(bv2v3);
         graph.addEdge(bv3v1);
 
         graph.addTriangle(tri);
+        
         Triangle bigTriangle = null;
         // Add all the vertices one by one in the graph
         for (Vertex pr : pointSet) {
+            System.out.println("Insert point " + pr.getID() + " (" + pr.getx() + ", "+ pr.gety() + ")");
             // Find triangle in D containing pr
             for (Triangle t : graph.getTriangle()) {
                 bigTriangle = null;
                 if (t.PointInTriangle(pr)) {
                     bigTriangle = t;
-                    System.out.println(t.v[0]);
+                    System.out.println(t.v[0].getID() + " " + t.v[1].getID() + " " + t.v[2].getID());
                     break;
                 }
             }
             // make new edges
             if(bigTriangle== null){
-                System.out.println("big triangle null");
+                System.out.println("PANIEK! big triangle null");
             }
             Edge prv0 = new Edge(pr, bigTriangle.v[0]);
             Edge prv1 = new Edge(pr, bigTriangle.v[1]);
             Edge prv2 = new Edge(pr, bigTriangle.v[2]);
 
             // edges big Triangle
-            Edge v0v1 = null;
-            Edge v1v2 = null;
-            Edge v2v0 = null;
+            Edge v0v1 = graph.getEdge(bigTriangle.v[0].getID(),bigTriangle.v[1].getID());
+            Edge v1v2 = graph.getEdge(bigTriangle.v[1].getID(),bigTriangle.v[2].getID());
+            Edge v0v2 = graph.getEdge(bigTriangle.v[0].getID(),bigTriangle.v[2].getID());
 
             //make new triangles
-            Triangle prv0v1 = new Triangle(pr, bigTriangle.v[0], bigTriangle.v[1]);
-            Triangle prv0v2 = new Triangle(pr, bigTriangle.v[0], bigTriangle.v[2]);
-            Triangle prv2v1 = new Triangle(pr, bigTriangle.v[2], bigTriangle.v[1]);
+            Triangle prv0v1 = new Triangle(pr, bigTriangle.v[0], bigTriangle.v[1], prv0, prv1, v0v1);
+            Triangle prv0v2 = new Triangle(pr, bigTriangle.v[0], bigTriangle.v[2], prv0, prv2, v0v2);
+            Triangle prv2v1 = new Triangle(pr, bigTriangle.v[2], bigTriangle.v[1], prv2, prv1, v1v2);
 
             //update edges from big triangle
             for (Edge e : graph.getEdges())
@@ -111,7 +126,7 @@ public class GraphFactory {
                             v0v1 = e;
                         } else if ((e.v[0] == bigTriangle.v[0] && e.v[1] == bigTriangle.v[2]) || (e.v[1] == bigTriangle.v[0] && e.v[0] == bigTriangle.v[2])) {
                             e.t[i] = prv0v2;
-                            v2v0 = e;
+                            v0v2 = e;
                         } else if ((e.v[0] == bigTriangle.v[2] && e.v[1] == bigTriangle.v[1]) || (e.v[1] == bigTriangle.v[2] && e.v[0] == bigTriangle.v[1])) {
                             e.t[i] = prv2v1;
                             v1v2 = e;
@@ -121,7 +136,7 @@ public class GraphFactory {
                 }
             }
             
-            if(v0v1 == null || v2v0 == null || v1v2 == null){
+            if(v0v1 == null || v0v2 == null || v1v2 == null){
                 System.out.println("niet alle edges zijn gevonden");
             }
 
@@ -147,11 +162,11 @@ public class GraphFactory {
             graph.addTriangle(prv2v1);
 
             //Legalize new edges
-            if (v0v1 == null || v2v0 == null || v1v2 == null) {
+            if (v0v1 == null || v0v2 == null || v1v2 == null) {
                 System.out.println("hier2");
             }
             graph.legalizeEdge(pr, v0v1);
-            graph.legalizeEdge(pr, v2v0);
+            graph.legalizeEdge(pr, v0v2);
             graph.legalizeEdge(pr, v1v2);
 
         }

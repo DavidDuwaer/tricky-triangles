@@ -59,7 +59,38 @@ public class GUI {
     JLabel edgeAffLabel;
     JCheckBox edgeAffCheck;
 
+    // For debugging purposes
+    public GUI(Graph graph){
+        frame = new JFrame();
+        frame.setTitle("Tricky Triangles");
+        frame.setSize(800, 500);
+        frame.setMinimumSize(new Dimension(420, 200));
+        layoutHorizontal = frame.getWidth() > frame.getHeight();
+        frame.setLocation(20, 20);
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.getContentPane().setBackground( Color.BLACK );
+        frame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e)
+            {
+                if (frame.getWidth() > frame.getHeight() ^ layoutHorizontal)
+                {
+                    super.componentResized(e); //To change body of generated methods, choose Tools | Templates.
+                    layoutHorizontal = frame.getWidth() > 1.1 * frame.getHeight();
+                    makeLayout();
+                }
+            }
+        });
 
+        /*
+         * Canvas
+         */
+        workCanvas = new Panel(graph);
+        frame.add(workCanvas);
+
+        frame.setVisible(true);
+    }
+    
     public GUI(TrickyTriangles main) {
         /*
          * Window

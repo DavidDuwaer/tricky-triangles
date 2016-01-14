@@ -7,12 +7,15 @@ package Graph;
 public class Triangle {
 
     Vertex[] v = new Vertex[3];
-    Edge[] e;
+    Edge[] e = new Edge[3];
 
-    public Triangle(Vertex v1, Vertex v2, Vertex v3) {
+    public Triangle(Vertex v1, Vertex v2, Vertex v3, Edge e1, Edge e2, Edge e3) {
         this.v[0] = v1;
         this.v[1] = v2;
         this.v[2] = v3;
+        this.e[0] = e1;
+        this.e[1] = e2;
+        this.e[2] = e3;
     }
 
     double sign(Vertex p1, Vertex p2, Vertex p3) {
