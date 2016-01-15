@@ -414,12 +414,12 @@ public class Graph {
                     i = pairs.size();
                 }
             }
-            if (pos == -1) {
-                return false;
+            if (pos > -1) {
+                pairs.remove(pos);
             }
-            pairs.remove(pos);
         }
-        return true;
+        System.out.println("Foute edges: " + pairs.size());
+        return pairs.isEmpty();
     }
 
 }
