@@ -48,15 +48,12 @@ public class GraphFactory {
         graph = createDelaunayTriangulation(pointSet);
         Edge[] edges = graph.getEdges().toArray(new Edge[graph.getEdges().size()]);
         Random generator = new Random();
-        for (int i = 0; i < pointSet.size() * 2; i++)
+        for (int i = 0; i < 5*pointSet.size() * 2; i++)
         {
             float r = generator.nextFloat();
             int ii = Math.round(r * (edges.length - 1));
-            if (edges[ii].t.length == 2)
-            {
-                if(edges[ii].t[0] != null && edges[ii].t[1] != null){
-                    graph.flipEdge(edges[ii]);
-                }
+            if(graph.canFlipEdge(edges[ii])){
+                graph.flipEdge(edges[ii]);
             }
         }
         return graph;

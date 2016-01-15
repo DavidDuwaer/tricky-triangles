@@ -91,6 +91,15 @@ public class GUI {
         frame.setVisible(true);
     }
     
+    public void newGame(){
+        main.newGame();
+        frame.remove(workCanvas);
+        frame.remove(goalCanvas);
+        workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame);
+        goalCanvas = new Panel(main.getGoalGraph());
+        makeLayout();
+    }
+    
     public GUI(TrickyTriangles main) {
         /*
          * Window
@@ -120,7 +129,7 @@ public class GUI {
         /*
          * Canvas
          */
-        workCanvas = new Panel(main.getWorkGraph());
+        workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame);
         goalCanvas = new Panel(main.getGoalGraph());
 
         /*
@@ -130,12 +139,7 @@ public class GUI {
         newGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent event) {
-                main.newGame();
-                frame.remove(workCanvas);
-                frame.remove(goalCanvas);
-                workCanvas = new Panel(main.getWorkGraph());
-                goalCanvas = new Panel(main.getGoalGraph());
-                makeLayout();
+                newGame();
             }
         });
 
@@ -149,7 +153,7 @@ public class GUI {
             public void actionPerformed(ActionEvent event) {
                 main.resetGame();
                 frame.remove(workCanvas);
-                workCanvas = new Panel(main.getWorkGraph());
+                workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame);
                 makeLayout();
             }
         });
@@ -181,12 +185,7 @@ public class GUI {
                 {
                     modeSelectedIndex = modeSelect.getSelectedIndex();
                     main.setMode(labelsToModes.get(modeLabels[modeSelectedIndex]));
-                    main.newGame();
-                    frame.remove(workCanvas);
-                    frame.remove(goalCanvas);
-                    workCanvas = new Panel(main.getWorkGraph());
-                    goalCanvas = new Panel(main.getGoalGraph());
-                    makeLayout();
+                    newGame();
                 }
                 else
                 {
@@ -222,12 +221,7 @@ public class GUI {
                 {
                     nPointsSelectedIndex = nPointsSelect.getSelectedIndex();
                     main.setNoPoints(nPointsOptions[nPointsSelectedIndex]);
-                    main.newGame();
-                    frame.remove(workCanvas);
-                    frame.remove(goalCanvas);
-                    workCanvas = new Panel(main.getWorkGraph());
-                    goalCanvas = new Panel(main.getGoalGraph());
-                    makeLayout();
+                    newGame();
                 }
                 else
                 {

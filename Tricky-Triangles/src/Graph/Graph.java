@@ -19,7 +19,7 @@ public class Graph {
 
     public void flipEdge(Edge edge){
         Triangle[] tr = edge.t;
-
+        
         System.out.println("Trying to flip " + edge.v[0].getID() + ", " + edge.v[1].getID());
         for(Vertex v: tr[0].v){
             System.out.print("(" + v.getID() + ", " + v.getx() + ", " + v.gety() + ") ");
@@ -124,10 +124,6 @@ public class Graph {
         Vertex v3 = pipj.v[1];
         Vertex v1 = findThird(pipj.t[0].v, v2, v3);
         Vertex v4 = findThird(pipj.t[1].v, v2, v3);
-        if(inTriangle(v2, v1, v3, v4) || inTriangle(v3,v1,v2,v4)){
-            System.out.println("(" + pipj.v[0].getID() + ", " + pipj.v[1].getID() + ") is géén illegal edge (v2)");
-            return false;
-        }
         double x1 = v1.getx(), x2 = v2.getx(), x3 = v3.getx(), x4 = v4.getx();
         double y1 = v1.gety(), y2 = v2.gety(), y3 = v3.gety(), y4 = v4.gety();
         double a = -2*x1+2*x3;
@@ -154,22 +150,39 @@ public class Graph {
         return t.PointInTriangle(p);
     }
 
-    public void legalizeEdge(Vertex pr, Edge pipj) {
-        // Check if pipj is not an outer edge
-        if (pipj == null || pipj.t == null || pipj.t[1] == null || pipj.t[0] == null) {
-            System.out.println("(" + pipj.v[0].getID() + ", " + pipj.v[1].getID() + ") is géén illegal edge (v3)");
-            return;
+    public boolean canFlipEdge(Edge pipj){
+        if (pipj == null || pipj.t == null) {
+            System.out.println("kan niet geflipt worden (buitenrand)");
+            return false;
+        }
+        Vertex v2 = pipj.v[0];
+        Vertex v3 = pipj.v[1];
+        if (pipj.t[1] == null || pipj.t[0] == null) {
+            System.out.println("(" + pipj.v[0].getID() + ", " + pipj.v[1].getID() + ") kan niet geflipt worden (buitenrand)");
+            return false;
+        }
+        Vertex v1 = findThird(pipj.t[0].v, v2, v3);
+        Vertex v4 = findThird(pipj.t[1].v, v2, v3);
+        if(inTriangle(v2, v1, v3, v4) || inTriangle(v3,v1,v2,v4)){
+            System.out.println("(" + pipj.v[0].getID() + ", " + pipj.v[1].getID() + ") kan niet geflipt worden (hoek te groot)");
+            return false;
         }
         
-        // check if 
-        if(illegalEdge(pipj)){
-            flipEdge(pipj);
-            Triangle[] t1 = pipj.t;
-            for(Triangle tr: t1){
-                for(Edge ed: tr.e){
-                    //TODO niet alles
-                    if(ed != pipj)
-                        legalizeEdge(pr, ed);
+        return true;
+    }
+    
+    public void legalizeEdge(Vertex pr, Edge pipj) {
+        
+        if(canFlipEdge(pipj)){
+            if(illegalEdge(pipj)){
+                flipEdge(pipj);
+                Triangle[] t1 = pipj.t;
+                for(Triangle tr: t1){
+                    for(Edge ed: tr.e){
+                        //TODO niet alles
+                        if(ed != pipj)
+                            legalizeEdge(pr, ed);
+                    }
                 }
             }
         }

@@ -13,6 +13,8 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.StrokeBorder;
 
@@ -23,17 +25,24 @@ import javax.swing.border.StrokeBorder;
 public class Panel extends JPanel implements MouseListener {
 
     Graph graph;
+    JFrame frame;
+    Graph targetGraph;
 
     Panel(Graph graph) {
         this.graph = graph;
         setBorder(new StrokeBorder(new BasicStroke(1f)));
         setBackground(new Color(91, 155, 213));
-
-        /*
-         * Set click listener
-         */
     }
 
+    Panel(Graph g, Graph tg, JFrame f){
+        graph = g;
+        targetGraph = tg;
+        frame = f;
+        setBorder(new StrokeBorder(new BasicStroke(1f)));
+        setBackground(new Color(91, 155, 213));
+        this.addMouseListener(this);
+    }
+    
     public void set(Graph g) {
         graph = g;
     }
@@ -123,11 +132,66 @@ public class Panel extends JPanel implements MouseListener {
     // If edge is clicked, flip it
     // TODO
     @Override
-    public void mousePressed(MouseEvent e) {
-        int x = e.getX();
-        int y = e.getY();
+    public void mousePressed(MouseEvent ev) {
+        int x0 = ev.getX();
+        int y0 = ev.getY();
+        double x = (x0 - debugOffset - getWidth() * 0.1)/(getWidth() * debugMult);
+        double y = (y0 - debugOffset - getHeight() * 0.1)/(getHeight() * debugMult);
+        System.out.println(x + " " + y);
+        Vertex v = new Vertex(x,y,-1);
+        Edge bestEdge = null;
+        double bestDist = 1000;
+        for(Edge e: graph.getEdges()){
+            if(dist(v,e) < bestDist){
+                bestDist = dist(v,e);
+                bestEdge = e;
+            }
+        }
+        if(graph.canFlipEdge(bestEdge)){
+            graph.flipEdge(bestEdge);
+            repaint();
+            if(gameOver()){
+                Object[] options = {"Good show!"};
+                int n = JOptionPane.showOptionDialog(frame,
+                "You, good sir, just won!",
+                "Heap heap... array!",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[0]);
+            }
+        }
+    }
+    
+    boolean gameOver(){
+        return graph.equals(targetGraph);
+    }
+    
+    double dist (Vertex p, Edge e) {
+        Vertex q1 = e.getVertices()[0];
+        Vertex q2 = e.getVertices()[1];
+        if ( inp( sub(p, q1), sub(q2 , q1)) < 0) {
+            return Math.sqrt( inp( sub(p, q1), sub(p, q1)));
+        }
+        if ( inp( sub(p, q2), sub(q1 , q2)) < 0) {
+            return Math.sqrt ( inp( sub(p, q2), sub(p, q2)));
+        }
+        return Math.abs ( dakje( sub(p, q1), sub(q2 , q1))) / Math.sqrt ( inp( sub(q2 , q1), sub(q2 , q1)));
+    }
+    
+    double inp(Vertex v1, Vertex v2){
+        return v1.getx()*v2.getx() + v1.gety()*v2.gety();
     }
 
+    Vertex sub(Vertex v1, Vertex v2){
+        return new Vertex(v1.getx()-v2.getx(), v1.gety()-v2.gety(), -1);
+    }
+    
+    double dakje(Vertex v1, Vertex v2){
+        return v1.getx()*v2.gety()-v1.gety()*v2.getx();
+    }
+    
     @Override
     public void mouseReleased(MouseEvent e) {
     }
