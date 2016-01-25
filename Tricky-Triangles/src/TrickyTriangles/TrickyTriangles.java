@@ -57,7 +57,7 @@ public class TrickyTriangles {
      */
     public void newGame()
     {
-        Set<Vertex> pointSet = createRandomPointSet();
+        Set<Vertex> pointSet = graphFactory.createRandomPointSet(n);
         //workGraph = graphFactory.createGraphWithOnlyPoints(pointSet);
         workGraph = graphFactory.createRandomTriangulation(pointSet);
         //workGraph = graphFactory.createDelaunayTriangulation(pointSet);
@@ -79,36 +79,7 @@ public class TrickyTriangles {
     {
         workGraph = new Graph(workGraphInitial); // make a copy of workGraphInitial
     }
-
-    /*
-     * Create a random point set with a random triangulation. All poitns
-     * have positions (x,y) such that 0<=x<=1 and 0<=y<=1.
-     */
-    private Set<Vertex> createRandomPointSet() {
-        Set<Vertex> set = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            Vertex v = graphFactory.createRandomVertex(i);
-            if(dist(new Vertex(0.5,0.5,-1),v) <= 0.5 && dist(set, v) >= 0.075){
-                set.add(v);
-            } else {
-                i--;
-                System.out.println("awww");
-            }
-        }
-        return set;
-    }
     
-    public double dist(Set<Vertex> set, Vertex v){
-        double toRet = 1000;
-        for(Vertex v2: set){
-            toRet = Math.min(toRet, dist(v,v2));
-        }
-        return toRet;
-    }
-
-    public double dist(Vertex v, Vertex v2){
-        return Math.sqrt( (v.getx()-v2.getx())*(v.getx()-v2.getx()) + (v.gety()-v2.gety())*(v.gety() - v2.gety()));
-    }
     public Graph getWorkGraph() {
         return workGraph;
     }

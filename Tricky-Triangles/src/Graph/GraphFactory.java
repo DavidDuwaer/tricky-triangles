@@ -28,6 +28,24 @@ public class GraphFactory {
         }
         return graph;
     }
+    
+    /*
+     * Create a random point set with a random triangulation. All poitns
+     * have positions (x,y) such that 0<=x<=1 and 0<=y<=1.
+     */
+    public Set<Vertex> createRandomPointSet(int n) {
+        Set<Vertex> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            Vertex v = createRandomVertex(i);
+            if(dist(new Vertex(0.5,0.5,-1),v) <= 0.5 && dist(set, v) >= 0.075){
+                set.add(v);
+            } else {
+                i--;
+                System.out.println("awww");
+            }
+        }
+        return set;
+    }
 
     public Graph createRandomGraphFromPoints(Collection<Vertex> points) {
         Graph graph = createGraphWithOnlyPoints(points);
@@ -239,6 +257,18 @@ public class GraphFactory {
                 id
         );
         return vertex;
+    }
+    
+    private double dist(Set<Vertex> set, Vertex v){
+        double toRet = 1000;
+        for(Vertex v2: set){
+            toRet = Math.min(toRet, dist(v,v2));
+        }
+        return toRet;
+    }
+    
+    private double dist(Vertex v, Vertex v2){
+        return Math.sqrt( (v.getx()-v2.getx())*(v.getx()-v2.getx()) + (v.gety()-v2.gety())*(v.gety() - v2.gety()));
     }
 
 }
