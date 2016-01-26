@@ -27,20 +27,23 @@ public class Panel extends JPanel implements MouseListener {
     Graph graph;
     JFrame frame;
     Graph targetGraph;
+    TrickyTriangles main;
 
-    Panel(Graph graph) {
-        this.graph = graph;
-        setBorder(new StrokeBorder(new BasicStroke(1f)));
-        setBackground(new Color(91, 155, 213));
-    }
+//    Panel(Graph graph, TrickyTriangles main) {
+//        this.graph = graph;
+//        setBorder(new StrokeBorder(new BasicStroke(1f)));
+//        setBackground(new Color(91, 155, 213));
+//        this.main = main;
+//    }
 
-    Panel(Graph g, Graph tg, JFrame f){
+    Panel(Graph g, Graph tg, JFrame f, TrickyTriangles main){
         graph = g;
         targetGraph = tg;
         frame = f;
         setBorder(new StrokeBorder(new BasicStroke(1f)));
         setBackground(new Color(91, 155, 213));
         this.addMouseListener(this);
+        this.main = main;
     }
     
     public void set(Graph g) {
@@ -63,7 +66,14 @@ public class Panel extends JPanel implements MouseListener {
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
         for (Edge edge : graph.getEdges()) {
-            g.setColor(Color.black);
+            if (main.getEdgeAff()
+                    && graph.edgeOccursInOtherGraph(edge, targetGraph))
+                g.setColor(Color.black);
+            else if (main.getEdgeAff()
+                    && !graph.edgeOccursInOtherGraph(edge, targetGraph))
+                g.setColor(new Color(255, 131, 23));
+            else
+                g.setColor(Color.black);
             graphics.drawLine(
                     (int) Math.floor((double) getWidth() * 0.1 + edge.getVertices()[0].getPos()[0] * getWidth() * debugMult) + debugOffset,
                     (int) Math.floor((double) getHeight() * 0.1 + edge.getVertices()[0].getPos()[1] * getHeight() * debugMult) + debugOffset,

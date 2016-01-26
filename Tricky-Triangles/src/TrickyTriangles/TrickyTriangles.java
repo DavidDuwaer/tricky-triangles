@@ -40,8 +40,14 @@ public class TrickyTriangles {
      */
     private int n;
     
+    /*
+     * Edge affirmation on (false = off)
+     */
+    private boolean edgeAff;
+    
     public void run() {
         n = 4;
+        edgeAff = false;
         mode = Mode.MOVE_TO_TARGET;
 
         graphFactory = new GraphFactory();
@@ -110,6 +116,16 @@ public class TrickyTriangles {
     public int getNoPoints()
     {
         return this.n;
+    }
+    
+    public void setEdgeAff(boolean edgeAff)
+    {
+        this.edgeAff = edgeAff;
+    }
+    
+    public boolean getEdgeAff()
+    {
+        return this.edgeAff;
     }
 
     public static void main(String[] args) {

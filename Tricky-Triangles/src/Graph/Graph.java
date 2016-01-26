@@ -421,5 +421,29 @@ public class Graph {
         System.out.println("Foute edges: " + pairs.size());
         return pairs.isEmpty();
     }
+    
+    public boolean edgeOccursInOtherGraph (Edge edge, Graph o)
+    {
+        int id1 = edge.v[0].getID();
+        int id2 = edge.v[1].getID();
+        int min = Math.min(id1, id2);
+        int max = Math.max(id1, id2);
+        int edgePair[] = new int[]{min, max};
+        ArrayList<int[]> pairs = new ArrayList<>();
+        for (Edge e : o.getEdges()) {
+            id1 = e.v[0].getID();
+            id2 = e.v[1].getID();
+            min = Math.min(id1, id2);
+            max = Math.max(id1, id2);
+            pairs.add(new int[]{min, max});
+        }
+        for (int[] pair : pairs)
+        {
+            if (pair[0] == edgePair[0]
+                    && pair[1] == edgePair[1])
+                return true;
+        }
+        return false;
+    }
 
 }

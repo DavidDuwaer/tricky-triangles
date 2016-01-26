@@ -55,6 +55,7 @@ public class GUI {
     JLabel nPointsLabel;
     JComboBox nPointsSelect;
     int nPointsSelectedIndex;
+    boolean edgeAffChecked;
     
     JLabel edgeAffLabel;
     JCheckBox edgeAffCheck;
@@ -85,7 +86,7 @@ public class GUI {
         /*
          * Canvas
          */
-        workCanvas = new Panel(graph);
+        workCanvas = new Panel(graph, main.getGoalGraph(), frame, main);
         frame.add(workCanvas);
 
         frame.setVisible(true);
@@ -95,8 +96,8 @@ public class GUI {
         main.newGame();
         frame.remove(workCanvas);
         frame.remove(goalCanvas);
-        workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame);
-        goalCanvas = new Panel(main.getGoalGraph());
+        workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame, main);
+        goalCanvas = new Panel(main.getGoalGraph(), main.getGoalGraph(), frame, main);
         makeLayout();
     }
     
@@ -129,8 +130,8 @@ public class GUI {
         /*
          * Canvas
          */
-        workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame);
-        goalCanvas = new Panel(main.getGoalGraph());
+        workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame, main);
+        goalCanvas = new Panel(main.getGoalGraph(), main.getGoalGraph(), frame, main);
 
         /*
          * "New game" button
@@ -153,7 +154,7 @@ public class GUI {
             public void actionPerformed(ActionEvent event) {
                 main.resetGame();
                 frame.remove(workCanvas);
-                workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame);
+                workCanvas = new Panel(main.getWorkGraph(), main.getGoalGraph(), frame, main);
                 makeLayout();
             }
         });
@@ -235,6 +236,30 @@ public class GUI {
          */
         edgeAffLabel = new JLabel("Edge affirmation:");
         edgeAffCheck = new JCheckBox();
+        edgeAffCheck.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event)
+            {
+                String[] options = {"OK", "Cancel"};
+                if(main.getWorkGraph().equals(main.getWorkGraphInitial())
+                        || JOptionPane.showOptionDialog(
+                        frame, 
+                        "Do you want to start a new game with the new settings?", 
+                        "Change game settings", 
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.QUESTION_MESSAGE, 
+                        null, options, null) == 0)
+                {
+                    edgeAffChecked = edgeAffCheck.isSelected();
+                    main.setEdgeAff(edgeAffChecked);
+                    newGame();
+                }
+                else
+                {
+                    edgeAffCheck.setSelected(edgeAffChecked);
+                }
+            }
+        });
         
         /*
          * Make layout
