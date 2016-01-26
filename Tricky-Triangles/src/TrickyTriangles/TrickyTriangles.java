@@ -69,7 +69,10 @@ public class TrickyTriangles {
         //workGraph = graphFactory.createDelaunayTriangulation(pointSet);
         workGraphInitial = new Graph(workGraph); // make a copy of workGraph
         //goalGraph = graphFactory.createRandomGraphFromPoints(pointSet);
-        goalGraph = graphFactory.createDelaunayTriangulation(pointSet);
+        if (mode == Mode.DELAUNAY_GAME)
+            goalGraph = graphFactory.createDelaunayTriangulation(pointSet);
+        else
+            goalGraph = graphFactory.createRandomTriangulation(pointSet);
 //        System.out.println("New game called");
 //        for (Vertex v : workGraph.getVertices())
 //        {
