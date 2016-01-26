@@ -46,7 +46,7 @@ public class TrickyTriangles {
     private boolean edgeAff;
     
     public void run() {
-        n = 4;
+        n = 5;
         edgeAff = false;
         mode = Mode.MOVE_TO_TARGET;
 
